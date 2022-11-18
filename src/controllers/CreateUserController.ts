@@ -3,16 +3,26 @@ import { database } from "../database";
 
 export class CreateUserController {
     async handle(request: Request, response: Response) {
-        const { username, password, accountId } = request.body;
+        const { username, password } = request.body
 
-        const user = await database.user.create({
-            data: {
+        const user  = await database.user.create({
+            data:{
                 username,
-                password,
-                accountId 
+                password
+            }
+        })
+        
+        const account = await database.accounts.create({
+            data: {
+                balance: 100,
+                userId: user.id
             }
         })
 
-        return response.json(user)
+        return response.json(account)
     }
+
+    
+
+
 }
