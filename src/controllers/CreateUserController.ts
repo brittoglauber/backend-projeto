@@ -3,16 +3,18 @@ import { database } from "../database";
 
 export class CreateUserController {
     async handle(request: Request, response: Response) {
-        const { username, password, accountId } = request.body;
+        const { username, password } = request.body
 
         const user = await database.user.create({
-            data: {
+            data:{
                 username,
-                password,
-                accountId 
+                password
             }
         })
 
         return response.json(user)
     }
+
+   
 }
+
