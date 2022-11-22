@@ -1,3 +1,4 @@
+import { hash } from "bcrypt";
 import { Request, Response } from "express";
 import { database } from "../database";
 
@@ -6,11 +7,12 @@ export class CreateUserController {
         try{
             const { username, password } = request.body
 
+            const passwordHash = await hash(password, 8)
 
             const user  = await database.user.create({
                 data:{
                     username,
-                    password
+                    password: passwordHash
                 }
             })
 
