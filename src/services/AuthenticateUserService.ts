@@ -2,6 +2,7 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { database } from "../database";
+import { AppError } from "../errors/AppError";
 
 interface IAuthenticateRequest {
   username: string;
@@ -9,7 +10,7 @@ interface IAuthenticateRequest {
 }
 
 class AuthenticateUserService {
-  async execute({username, password}: IAuthenticateRequest) {
+  async execute({ username, password }: IAuthenticateRequest) {
     const user = await database.user.findUnique({
       where: {
         username
@@ -17,13 +18,13 @@ class AuthenticateUserService {
     })
 
     if(!user) {
-      throw new Error("Email or password Incorrect !")
+      throw new AppError("Email or password is incorrect!");
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if(!passwordMatch) {
-      throw new Error ("Email or password Incorrect !")
+      throw new AppError("Email or password is incorrect!");
     }
 
     const token = sign({
