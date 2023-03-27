@@ -24,7 +24,7 @@ router.post('/user', createUser.handle)
 
 router.post('/login', authUser.handle);
 
-router.use(ensureAuthenticated)
+// router.use(ensureAuthenticated)
 
 router.get('/user/:id', findUser.handle)
 router.get('/users', findUsers.handle)

@@ -5,7 +5,14 @@ import { AppError } from './errors/AppError'
 
 const app = express()
 
-app.use(cors())
+const corsOptions = {
+    "origin": "http://localhost:3000",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "credentials": true,
+    "headers": "X-Requested-With, Content-Type, Accept, Origin, Authorization"
+  }
+
+app.use(cors(corsOptions));
 
 app.use(express.json())
 
