@@ -3,8 +3,6 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { database } from "../database";
 
-
-
 interface IAuthenticateRequest {
   username: string;
   password: string;
@@ -12,8 +10,6 @@ interface IAuthenticateRequest {
 
 class AuthenticateUserService {
   async execute({username, password}: IAuthenticateRequest) {
-
-
     const user = await database.user.findUnique({
       where: {
         username
