@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface IPayload {
     sub: string;
@@ -15,7 +18,7 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
     const [, token] = authtoken.split(" ");
 
     try {
-        const { sub } = verify(token, "4aec22f22755bd6f0f4ce8aa289c3401") as IPayload;
+        const { sub } = verify(token, process.env.JWT_SECRET_KEY as string) as IPayload;
 
         // request.user_id = sub
 
